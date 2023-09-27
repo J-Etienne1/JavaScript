@@ -19,7 +19,7 @@
 
     
 // Challenge 1
-// Create a function called getCelsius() that takes a temperature in Fahrenheit as an argument and returns the temperature in celsius.
+// Create a function called getCelsius() that takes a temperature in Fahrenheit as an argument and returns the temperature in celsius..
 function getCelcsius(f) {
     const celsius = (f - 32) * 5/9
     return celsius
@@ -32,6 +32,7 @@ const getCelcsius2 = (f) => ((f - 32) * 5)/9
 
 console.log(getCelcsius2(75))
 console.log(`The temp in C is ${getCelcsius2(50)}`)
+
 
 
 
