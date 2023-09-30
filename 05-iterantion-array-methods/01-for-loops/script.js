@@ -27,3 +27,51 @@ for (let i = 0; i <= 10; i++) {
     console.log("i = 7 ");
   }
 }
+
+
+
+// NestedLoops
+for (let i = 1; i <= 5; i++) {
+    console.log("Number " + i)
+    for (let j = 0; j <= 10; j++) {
+        console.log(`${i} * ${j} = ${i*j}`);
+        
+    }
+    
+}
+
+
+
+
+// Loop through an Array
+const names = ["jason", "Debie", "Nick"]
+for (let i = 0; i < names.length; i++) {
+    if(i == 1){
+        console.log(names[i] + " is the best")
+    } else {
+        console.log(names[i]);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
