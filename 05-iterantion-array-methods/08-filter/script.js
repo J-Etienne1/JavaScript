@@ -60,3 +60,10 @@ const retailCompanies = companies.filter((company) => company.category === "Reta
 const earlyCompanies = companies.filter((company) => company.start >= 1980 && company.end <= 2005)
 console.log(earlyCompanies)
 
+
+// Get companies that lasted 10 years or more
+const longCompanies = companies.filter(
+    (company) => company.end - company.start >= 10
+  );
+  
+  console.log(longCompanies);
