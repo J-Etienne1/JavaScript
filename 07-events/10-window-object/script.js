@@ -36,3 +36,18 @@ window.addEventListener("scroll", ()=>{
         document.body.style.color = "black"
     }
 })
+
+
+window.addEventListener("focus", ()=>{
+    document.querySelectorAll("p").forEach((p) =>{
+        p.style.color = "yellow"
+    })
+})
+
+
+
+window.addEventListener("blur", ()=>{
+    document.querySelectorAll("p").forEach((p) =>{
+        p.style.color = "red"
+    })
+})
