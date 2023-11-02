@@ -3,6 +3,8 @@
 const itemForm = document.getElementById("item-form");
 const itemInput = document.getElementById("item-input");
 const itemList = document.getElementById("item-list");
+const clearBtn = document.getElementById("clear");
+const itemFilter = document.getElementById("filter");
 
 
 
@@ -27,7 +29,10 @@ function addItem(e) {
     //console.log(button)
     li.appendChild(button)
     
+    // Add li to the DOM
     itemList.appendChild(li);
+
+    checkUI();
 
     itemInput.value = ""
 }
@@ -62,8 +67,53 @@ function createIcon(classes) {
 
 
 
+function removeItem(e) {
+    //console.log(e.target.parentElement.classList)
+    if ((e.target.parentElement.classList.contains("remove-item"))) {
+        //e.target.remove();
+        //console.log("click")
+        if (confirm("Are you Sure?")) {
+            e.target.parentElement.parentElement.remove();
+
+            checkUI();
+        }
+        
+    }
+    
+}
 
 
+
+
+
+
+function clearItems() {
+    //console.log("works")
+    while (itemList.firstChild) {
+        itemList.removeChild(itemList.firstChild)
+    }
+
+    checkUI();
+}
+
+
+
+
+
+
+
+
+
+function checkUI() {
+    const items = itemList.querySelectorAll("li");
+    if (items.length === 0) {
+        clearBtn.style.display = "none";
+        itemFilter.style.display = "none";
+    } else {
+        clearBtn.style.display = "block";
+        itemFilter.style.display = "block";
+    }
+}
 
 
 
@@ -74,3 +124,28 @@ function createIcon(classes) {
 
 // Event Listeners
 itemForm.addEventListener("submit", addItem);
+itemList.addEventListener("click", removeItem);
+clearBtn.addEventListener("click", clearItems);
+
+
+
+checkUI();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
