@@ -48,6 +48,7 @@ function createButton(classes) {
 
 
 
+
 function createIcon(classes) {
     const icon = document.createElement("i");
     icon.className = classes;
