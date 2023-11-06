@@ -54,6 +54,11 @@ function onAddItemSubmit(e) {
 
 
 
+
+
+
+
+
 function onAddItemToDOM(item) {
     const li = document.createElement("li")
     li.appendChild(document.createTextNode(item));
@@ -75,13 +80,6 @@ function onAddItemToDOM(item) {
 
 
 
-
-
-
-
-
-
-
 function createButton(classes) {
     const button = document.createElement("button");
     button.className = classes;
@@ -89,6 +87,10 @@ function createButton(classes) {
     button.appendChild(icon);
     return button;
 }
+
+
+
+
 
 
 
@@ -123,6 +125,11 @@ function addItemToStorage(item) {
 
 
 
+
+
+
+
+
 function getItemsFromStorage() {
     let itemsFromStorage;
 
@@ -141,20 +148,58 @@ function getItemsFromStorage() {
 
 
 
-function removeItem(e) {
-    //console.log(e.target.parentElement.classList)
-    if ((e.target.parentElement.classList.contains("remove-item"))) {
-        //e.target.remove();
-        //console.log("click")
-        if (confirm("Are you Sure?")) {
-            e.target.parentElement.parentElement.remove();
 
-            checkUI();
-        }
-        
+
+
+function onClickItem(e) {
+    if ((e.target.parentElement.classList.contains("remove-item"))) {
+        removeItem(e.target.parentElement.parentElement);
+    }
+}
+
+
+
+
+
+
+
+
+
+function removeItem(item) {
+    //console.log(item)
+    if (confirm("Are you sure?")) {
+        // Remove item from DOM
+        item.remove();
+
+        // Remove item from storage
+        removeItemFromStorage(item.textContent);
+
+        checkUI();
     }
     
 }
+
+
+
+
+
+
+
+
+function removeItemFromStorage(item) {
+    let itemsFromStorage = getItemsFromStorage();
+
+    //console.log(itemsFromStorage);
+
+
+    // Filter out Item to be removed
+    itemsFromStorage = itemsFromStorage.filter((i) => i !== item);
+
+    //Reset to local storage
+    localStorage.setItem("items", JSON.stringify(itemsFromStorage));
+}
+
+
 
 
 
@@ -167,8 +212,16 @@ function clearItems() {
         itemList.removeChild(itemList.firstChild)
     }
 
+
+    // Clear from localStorage
+    localStorage.removeItem("items");
+
     checkUI();
 }
+
+
+
+
 
 
 
@@ -224,7 +277,7 @@ function checkUI() {
 function init() {
     // Event Listeners
 itemForm.addEventListener("submit", onAddItemSubmit);
-itemList.addEventListener("click", removeItem);
+itemList.addEventListener("click", onClickItem);
 clearBtn.addEventListener("click", clearItems);
 itemFilter.addEventListener("input", filterItems);
 document.addEventListener("DOMContentLoaded", displayItems);
