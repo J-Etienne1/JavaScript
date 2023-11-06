@@ -8,7 +8,14 @@ const itemFilter = document.getElementById("filter");
 
 
 
-function addItem(e) {
+function displayItems() {
+    const itemsFromStorage = getItemsFromStorage();
+    itemsFromStorage.forEach((item) => onAddItemToDOM(item));
+    checkUI();
+}
+
+
+function onAddItemSubmit(e) {
     e.preventDefault();
 
     const newItem = itemInput.value;
@@ -23,21 +30,53 @@ function addItem(e) {
     
 
     //Create List Item
-    const li = document.createElement("li")
-    li.appendChild(document.createTextNode(newItem));
+    // const li = document.createElement("li")
+    // li.appendChild(document.createTextNode(newItem));
 
-    const button = createButton("remove-item btn-link text-red")
-    //console.log(li)
-    //console.log(button)
-    li.appendChild(button)
+    // const button = createButton("remove-item btn-link text-red")
+    // //console.log(li)
+    // //console.log(button)
+    // li.appendChild(button)
     
-    // Add li to the DOM
-    itemList.appendChild(li);
+    // // Add li to the DOM
+    // itemList.appendChild(li);
 
+    // Create item DOM element
+    onAddItemToDOM(newItem);
+
+
+    // Add item to local storage
+    addItemToStorage(newItem);
     checkUI();
 
     itemInput.value = ""
 }
+
+
+
+function onAddItemToDOM(item) {
+    const li = document.createElement("li")
+    li.appendChild(document.createTextNode(item));
+
+    const button = createButton("remove-item btn-link text-red")    
+    li.appendChild(button)
+    
+    
+    itemList.appendChild(li);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -61,6 +100,39 @@ function createIcon(classes) {
     icon.className = classes;
     return icon;
 
+}
+
+
+
+
+
+
+
+
+function addItemToStorage(item) {
+    const itemsFromStorage = getItemsFromStorage()
+
+    // Add new item to array
+    itemsFromStorage.push(item);
+
+    // Convert to JSON String and set to Local Storage
+    localStorage.setItem("items", JSON.stringify(itemsFromStorage));
+
+}
+
+
+
+
+function getItemsFromStorage() {
+    let itemsFromStorage;
+
+    if (localStorage.getItem("items") === null) {
+        itemsFromStorage = [];
+    } else {
+        itemsFromStorage = JSON.parse(localStorage.getItem("items"));
+    }
+
+    return itemsFromStorage;
 }
 
 
@@ -147,15 +219,23 @@ function checkUI() {
 
 
 
-// Event Listeners
-itemForm.addEventListener("submit", addItem);
+
+// Initialize App
+function init() {
+    // Event Listeners
+itemForm.addEventListener("submit", onAddItemSubmit);
 itemList.addEventListener("click", removeItem);
 clearBtn.addEventListener("click", clearItems);
 itemFilter.addEventListener("input", filterItems);
-
-
+document.addEventListener("DOMContentLoaded", displayItems);
 
 checkUI();
+}
+
+
+
+
+init();
 
 
 
