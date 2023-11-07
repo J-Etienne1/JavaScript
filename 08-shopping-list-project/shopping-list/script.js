@@ -53,6 +53,11 @@ function onAddItemSubmit(e) {
         itemToEdit.classList.remove("edit-mode");
         itemToEdit.remove();
         isEditMode = false;
+    } else {
+        if (checkIfItemExists(newItem)) {
+            alert("That item already exists");
+            return;
+        }
     }
 
 
@@ -177,6 +182,16 @@ function onClickItem(e) {
 }
 
 
+
+function checkIfItemExists(item) {
+    const itemsFromStorage = getItemsFromStorage();
+    const itemsLowerCase = itemsFromStorage.map((str) => str.toLowerCase());
+    return itemsLowerCase.includes(item.toLowerCase());
+}
+
+
+
+
 function setItemToEdit(item) {
     isEditMode = true;
 
@@ -288,7 +303,7 @@ function checkUI() {
     itemInput.value = "";
 
     const items = itemList.querySelectorAll("li");
-    
+
     if (items.length === 0) {
         clearBtn.style.display = "none";
         itemFilter.style.display = "none";
